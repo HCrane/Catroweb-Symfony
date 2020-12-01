@@ -79,6 +79,7 @@ security:
             stateless: true
             guard:
                 authenticators:
+                    - App\Api_deprecated\Security\ApiTokenAuthenticator
                     - lexik_jwt_authentication.jwt_token_authenticator
 
         api_projects_user:

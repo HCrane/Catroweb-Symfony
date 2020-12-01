@@ -16,13 +16,20 @@ class APIHelper
    */
   public static function getPandaAuth($value): string
   {
-    try
+    if(strpos($value, "Bearer"))
     {
-      return preg_split('#\s+#', $value)[1];
+      try
+      {
+        return preg_split('#\s+#', $value)[1];
+      }
+      catch (Exception $e)
+      {
+        throw new Exception('The route must be registered under the jwt_token_authenticator! (security.yml)', Response::HTTP_UNAUTHORIZED);
+      }
     }
-    catch (Exception $e)
+    else
     {
-      throw new Exception('The route must be registered under the jwt_token_authenticator! (security.yml)', Response::HTTP_UNAUTHORIZED);
+      return $value;
     }
   }
 
